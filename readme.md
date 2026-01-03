@@ -56,4 +56,11 @@
 | -------------------------------- |
 | APPROVED                         |
 | REJECT                           |
-| *(You may want `PENDING` later)* |
+
+## Relationship summury
+| Relationship      | Type                       |
+| ----------------- | -------------------------- |
+| User → Post       | One-to-Many                |
+| User → Comment    | One-to-Many                |
+| Post → Comment    | One-to-Many                |
+| Comment → Comment | Self-referencing (Replies) |
