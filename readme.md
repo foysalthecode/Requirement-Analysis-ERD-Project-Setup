@@ -2,7 +2,7 @@
 
 ## ERD
 
-> user
+> user table
 
 |PK  | id            string            |
 |----|---------------------------------|
@@ -15,3 +15,19 @@
 |-----------|
 |   USER    |
 |   ADMIN   |
+
+> post table
+
+| Field      | Type       | Constraints      |
+| ---------- | ---------- | ---------------- |
+| id         | string     | **PK**           |
+| title      | string     | —                |
+| content    | string     | —                |
+| thumbnail  | string     | Nullable         |
+| isFeatured | boolean    | —                |
+| status     | postStatus | Enum             |
+| tags       | string[]   | Array            |
+| views      | int        | —                |
+| authorId   | string     | **FK → user.id** |
+| createdAt  | DateTime   | —                |
+| updatedAt  | DateTime   | —                |
