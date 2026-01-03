@@ -6,7 +6,12 @@
 
 |PK  | id            string            |
 |----|---------------------------------|
-|    | name          string            |              |-----|   Role    |
-|    | email         string            |              |     -------------
-|    | role          Role              |---------------     | USER      |
-|    |                                 |                    | ADMIN     |
+|    | name          string            |
+|    | email         string            |              
+|    | role          Role              |
+
+
+|   Role    |
+|-----------|
+|   USER    |
+|   ADMIN   |
