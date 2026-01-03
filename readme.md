@@ -3,7 +3,6 @@
 ## ERD
 
 > user
-|               User                   |
 |PK  | id            string            |
 |----|---------------------------------|
 |    | name          string            |
