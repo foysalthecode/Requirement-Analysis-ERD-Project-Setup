@@ -1,8 +1,8 @@
 # Requirment Analysis,ERD & Project Setup
 
-## ERD
+# ERD
 
-> user table
+## user table
 
 |PK  | id            string            |
 |----|---------------------------------|
@@ -16,7 +16,7 @@
 |   USER    |
 |   ADMIN   |
 
-> post table
+## post table
 
 | Field      | Type       | Constraints      |
 | ---------- | ---------- | ---------------- |
@@ -31,3 +31,29 @@
 | authorId   | string     | **FK → user.id** |
 | createdAt  | DateTime   | —                |
 | updatedAt  | DateTime   | —                |
+
+| Value     |
+| --------- |
+| DRAFT     |
+| PUBLISHED |
+| ARCHIVED  |
+
+
+## comment table
+
+| Field     | Type          | Constraints               |
+| --------- | ------------- | ------------------------- |
+| id        | string        | **PK**                    |
+| content   | string        | —                         |
+| authorId  | string        | **FK → user.id**          |
+| postId    | string        | **FK → post.id**          |
+| parentId  | string        | Nullable (self-reference) |
+| status    | commentStatus | Enum                      |
+| createdAt | DateTime      | —                         |
+| updatedAt | DateTime      | —                         |
+
+| Value                            |
+| -------------------------------- |
+| APPROVED                         |
+| REJECT                           |
+| *(You may want `PENDING` later)* |
