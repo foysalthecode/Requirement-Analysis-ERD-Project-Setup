@@ -2,7 +2,7 @@
 
 # ERD
 
-## user table
+## user table 📘
 
 |PK  | id            string            |
 |----|---------------------------------|
@@ -16,7 +16,7 @@
 |   USER    |
 |   ADMIN   |
 
-## post table
+## post table 📝
 
 | Field      | Type       | Constraints      |
 | ---------- | ---------- | ---------------- |
@@ -39,7 +39,7 @@
 | ARCHIVED  |
 
 
-## comment table
+## comment table 💬
 
 | Field     | Type          | Constraints               |
 | --------- | ------------- | ------------------------- |
@@ -57,7 +57,7 @@
 | APPROVED                         |
 | REJECT                           |
 
-## Relationship summury
+## Relationship summury 🔗
 | Relationship      | Type                       |
 | ----------------- | -------------------------- |
 | User → Post       | One-to-Many                |
