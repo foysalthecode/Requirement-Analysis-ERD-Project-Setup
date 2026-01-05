@@ -41,7 +41,10 @@ export const auth = betterAuth({
     autoSignIn: false,
     requireEmailVerification: true,
   },
+
   emailVerification: {
+    sendOnSignUp: true,
+    autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url, token }, request) => {
       try {
         const verificationUrl = `${process.env.APP_URL}/verify-email?token=${token}`;
@@ -97,7 +100,7 @@ export const auth = betterAuth({
               </p>
 
               <p style="word-break:break-all; color:#2563eb; font-size:14px;">
-                ${verificationUrl}
+                ${url}
               </p>
 
               <p style="color:#6b7280; font-size:13px; line-height:1.6; margin-top:30px;">
@@ -128,6 +131,14 @@ export const auth = betterAuth({
         console.log(err);
         throw err;
       }
+    },
+  },
+  socialProviders: {
+    google: {
+      prompt: "select_account consent",
+      accessType: "offline",
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
 });
