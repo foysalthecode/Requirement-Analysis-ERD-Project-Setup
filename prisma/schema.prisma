@@ -72,8 +72,8 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
-  role  String? @default("USER")
-  phone String?
+  role   String? @default("USER")
+  phone  String?
   status String? @default("ACTIVE")
 
   @@unique([email])
