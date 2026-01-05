@@ -43,12 +43,13 @@ export const auth = betterAuth({
   },
   emailVerification: {
     sendVerificationEmail: async ({ user, url, token }, request) => {
-      const verificationUrl = `${process.env.APP_URL}/verify-email?token=${token}`;
-      const info = await transporter.sendMail({
-        from: '"Prisma blog" <prismablog@ph.com>',
-        to: user.email,
-        subject: "Please verify your email",
-        html: `
+      try {
+        const verificationUrl = `${process.env.APP_URL}/verify-email?token=${token}`;
+        const info = await transporter.sendMail({
+          from: '"Prisma blog" <prismablog@ph.com>',
+          to: user.email,
+          subject: "Please verify your email",
+          html: `
         <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,9 +121,13 @@ export const auth = betterAuth({
 </html>
 
         `,
-      });
+        });
 
-      console.log("Message sent:", info.messageId);
+        console.log("Message sent:", info.messageId);
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
     },
   },
 });
