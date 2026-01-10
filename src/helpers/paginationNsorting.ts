@@ -1,12 +1,33 @@
 type Ioptions = {
   page?: number;
   limit?: number;
-  sortBY?: string;
+  sortBy?: string;
   sortOrder?: string;
 };
 
-const paginationSortingHelper = (options: Ioptions) => {
-  console.log(options);
+type IoptionsResult = {
+  page: number;
+  limit: number;
+  skip: number;
+  sortBy: string;
+  sortOrder: string;
+};
+
+const paginationSortingHelper = (options: Ioptions): IoptionsResult => {
+  //pagination--------------------------------------
+  const page: number = Number(options.page) || 1;
+  const limit: number = Number(options.limit) || 10;
+  const skip = (page - 1) * limit;
+  // sorting -----------------------------------------
+  const sortBy: string = options.sortBy || "createdAt";
+  const sortOrder: string = options.sortOrder || "desc";
+  return {
+    page,
+    limit,
+    skip,
+    sortBy,
+    sortOrder,
+  };
 };
 
 export default paginationSortingHelper;
