@@ -114,7 +114,16 @@ const getAllPost = async ({
 };
 
 const getPostById = async (id: string) => {
-  console.log("id");
+  const updateViewsCount = await prisma.post.update({
+    where: {
+      id: id,
+    },
+    data: {
+      views: {
+        increment: 1, 
+      },
+    },
+  });
   const result = await prisma.post.findUnique({
     where: {
       id: id,
