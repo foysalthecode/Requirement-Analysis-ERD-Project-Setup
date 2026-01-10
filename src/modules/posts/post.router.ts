@@ -8,4 +8,6 @@ router.post("/", auth(UserRole.USER), postController.createPost);
 
 router.get("/", postController.getAllPost);
 
+router.get("/:id", postController.getPostById);
+
 export const postRouter: Router = router;
