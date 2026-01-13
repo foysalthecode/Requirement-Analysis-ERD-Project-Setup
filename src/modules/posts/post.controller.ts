@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { postService } from "./post.service";
 import { PostStatus } from "../../../generated/prisma/enums";
 import paginationSortingHelper from "../../helpers/paginationNsorting";
 import { UserRole } from "../../middleware/auth";
 
-const createPost = async (req: Request, res: Response) => {
+const createPost = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = req.user;
     if (!user) {
@@ -15,10 +15,7 @@ const createPost = async (req: Request, res: Response) => {
     const result = await postService.createPost(req.body, user?.id);
     res.status(201).json(result);
   } catch (err) {
-    res.status(401).json({
-      error: "Post Creation Failed",
-      details: err,
-    });
+    next(err);
   }
 };
 
@@ -151,7 +148,7 @@ const deletePost = async (req: Request, res: Response) => {
 const getStats = async (req: Request, res: Response) => {
   try {
     const result = await postService.getStats();
-    return res.status(200).json(result)
+    return res.status(200).json(result);
   } catch (err) {
     const errorMessage =
       err instanceof Error ? err.message : "Stats Fetch Failed";
@@ -169,5 +166,5 @@ export const postController = {
   getMyPosts,
   updatePost,
   deletePost,
-  getStats
+  getStats,
 };
