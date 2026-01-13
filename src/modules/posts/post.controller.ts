@@ -19,7 +19,6 @@ const createPost = async (req: Request, res: Response) => {
       error: "Post Creation Failed",
       details: err,
     });
-    console.log(err);
   }
 };
 
@@ -61,7 +60,6 @@ const getAllPost = async (req: Request, res: Response) => {
       error: "Didn't Find any data",
       details: err,
     });
-    console.log(err);
   }
 };
 
@@ -88,7 +86,6 @@ const getMyPosts = async (req: Request, res: Response) => {
     if (!user) {
       throw new Error("Post Id is Required !!");
     }
-    console.log(user);
     const result = await postService.getMyPosts(user.id);
     return res.status(200).json(result);
   } catch (err) {
