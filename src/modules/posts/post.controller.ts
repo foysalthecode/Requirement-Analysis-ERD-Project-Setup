@@ -42,7 +42,6 @@ const getAllPost = async (req: Request, res: Response) => {
     const { page, limit, skip, sortBy, sortOrder } = paginationSortingHelper(
       req.query
     );
-
     const result = await postService.getAllPost({
       search: searchString,
       tags,
@@ -76,6 +75,23 @@ const getPostById = async (req: Request, res: Response) => {
     return res.status(200).json(result);
   } catch (err) {
     res.status(404).json({
+      error: "Did not Find any data",
+      details: err,
+    });
+  }
+};
+
+const getMyPosts = async (req: Request, res: Response) => {
+  try {
+    const user = req.user;
+    if (!user) {
+      throw new Error("Post Id is Required !!");
+    }
+    console.log(user);
+    const result = await postService.getMyPosts(user.id);
+    return res.status(200).json(result);
+  } catch (err) {
+    res.status(404).json({
       error: "Didn't Find any data",
       details: err,
     });
@@ -86,4 +102,5 @@ export const postController = {
   createPost,
   getAllPost,
   getPostById,
+  getMyPosts,
 };
