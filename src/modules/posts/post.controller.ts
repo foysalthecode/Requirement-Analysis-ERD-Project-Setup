@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { postService } from "./post.service";
 import { PostStatus } from "../../../generated/prisma/enums";
 import paginationSortingHelper from "../../helpers/paginationNsorting";
+import { UserRole } from "../../middleware/auth";
 
 const createPost = async (req: Request, res: Response) => {
   try {
@@ -98,9 +99,35 @@ const getMyPosts = async (req: Request, res: Response) => {
   }
 };
 
+const updatePost = async (req: Request, res: Response) => {
+  try {
+    const user = req.user;
+    if (!user) {
+      throw new Error("Post Id is Required !!");
+    }
+    const { postId } = req.params;
+    const isAdmin = user.role === UserRole.ADMIN
+    const result = await postService.updatePost(
+      postId as string,
+      req.body,
+      user.id,
+      isAdmin
+    );
+    return res.status(200).json(result);
+  } catch (err) {
+    const errorMessage =
+      err instanceof Error ? err.message : "Post Update Failed";
+    return res.status(400).json({
+      error: errorMessage,
+      details: err,
+    });
+  }
+};
+
 export const postController = {
   createPost,
   getAllPost,
   getPostById,
   getMyPosts,
+  updatePost,
 };
