@@ -10,4 +10,10 @@ router.post(
   commentController.createComment
 );
 
+router.get(
+  "/:commentId",
+  auth(UserRole.ADMIN),
+  commentController.getCommentById
+);
+
 export const commentRouter: Router = router;
