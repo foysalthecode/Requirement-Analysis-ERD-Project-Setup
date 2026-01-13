@@ -28,6 +28,17 @@ function errorHandler(
       statusCode = 400;
       errorMessage = "Foreign Key Constraint Failed ";
     }
+  } else if (err instanceof Prisma.PrismaClientUnknownRequestError) {
+    statusCode = 500;
+    errorMessage = "Error occured during querry execution";
+  } else if (err instanceof Prisma.PrismaClientInitializationError) {
+    if (err.errorCode === "P1000") {
+      statusCode = 401;
+      errorMessage = "Authentication Failed. Please Check Your Credentials!!";
+    } else if (err.errorCode === "P1001") {
+      statusCode = 400;
+      errorMessage = "Can't Reach Database Server";
+    }
   }
 
   res.status(statusCode);
