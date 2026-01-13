@@ -106,7 +106,7 @@ const updatePost = async (req: Request, res: Response) => {
       throw new Error("Post Id is Required !!");
     }
     const { postId } = req.params;
-    const isAdmin = user.role === UserRole.ADMIN
+    const isAdmin = user.role === UserRole.ADMIN;
     const result = await postService.updatePost(
       postId as string,
       req.body,
@@ -124,10 +124,38 @@ const updatePost = async (req: Request, res: Response) => {
   }
 };
 
+const deletePost = async (req: Request, res: Response) => {
+  try {
+    const user = req.user;
+    if (!user) {
+      throw new Error("Post Id is Required !!");
+    }
+    const { postId } = req.params;
+    const isAdmin = user.role === UserRole.ADMIN;
+    const result = await postService.deletePost(
+      postId as string,
+      user.id,
+      isAdmin
+    );
+    return res.status(200).json({
+      message: "delete Successfully",
+      result,
+    });
+  } catch (err) {
+    const errorMessage =
+      err instanceof Error ? err.message : "Post Delete Failed";
+    return res.status(400).json({
+      error: errorMessage,
+      details: err,
+    });
+  }
+};
+
 export const postController = {
   createPost,
   getAllPost,
   getPostById,
   getMyPosts,
   updatePost,
+  deletePost,
 };
