@@ -93,7 +93,7 @@ const getMyPosts = async (req: Request, res: Response) => {
   }
 };
 
-const updatePost = async (req: Request, res: Response) => {
+const updatePost = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = req.user;
     if (!user) {
@@ -109,12 +109,7 @@ const updatePost = async (req: Request, res: Response) => {
     );
     return res.status(200).json(result);
   } catch (err) {
-    const errorMessage =
-      err instanceof Error ? err.message : "Post Update Failed";
-    return res.status(400).json({
-      error: errorMessage,
-      details: err,
-    });
+    next(err);
   }
 };
 
